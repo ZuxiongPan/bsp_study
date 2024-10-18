@@ -1,6 +1,7 @@
 *.o
 *.a
 *.o.cmd
+*.a.cmd
 
 root/
 sdcard

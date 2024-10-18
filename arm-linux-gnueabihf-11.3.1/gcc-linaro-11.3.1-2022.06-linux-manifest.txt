@@ -1,0 +1,230 @@
+manifest_format=1.6
+
+# Note that for ABE, these parameters are not used
+# Component data for dejagnu
+dejagnu_url=https://git.linaro.org/git/toolchain
+dejagnu_branch=linaro-local/stable
+dejagnu_revision=a52a926e39ab80d95799e976c12c59b2b30d2c69
+dejagnu_filespec=dejagnu.git
+dejagnu_mingw_only="no"
+dejagnu_linuxhost_only="no"
+dejagnu_staticlink="yes"
+
+# Component data for gmp
+gmp_url=https://snapshots.linaro.org/components/toolchain/infrastructure
+gmp_filespec=gmp-6.1.2.tar.xz
+gmp_md5sum=f58fa8001d60c4c77595fbbb62b63c1d
+gmp_mingw_only="no"
+gmp_linuxhost_only="no"
+gmp_configure="--enable-cxx --enable-fft"
+gmp_staticlink="yes"
+
+# Component data for mpfr
+mpfr_url=https://snapshots.linaro.org/components/toolchain/infrastructure
+mpfr_filespec=mpfr-3.1.5.tar.xz
+mpfr_md5sum=c4ac246cf9795a4491e7766002cd528f
+mpfr_mingw_only="no"
+mpfr_linuxhost_only="no"
+mpfr_configure="--with-gmp=${local_builds}/destdir/${host}"
+mpfr_staticlink="yes"
+
+# Component data for mpc
+mpc_url=https://snapshots.linaro.org/components/toolchain/infrastructure/
+mpc_filespec=mpc-1.0.3.tar.gz
+mpc_md5sum=d6a1d5f8ddea3abd2cc3e98f58352d26
+mpc_mingw_only="no"
+mpc_linuxhost_only="no"
+mpc_configure="--with-gmp=${local_builds}/destdir/${host} --with-mpfr=${local_builds}/destdir/${host}"
+mpc_staticlink="yes"
+
+# Component data for binutils
+binutils_url=https://git.linaro.org/git/toolchain
+binutils_branch=binutils-2_37-branch
+binutils_revision=44f1cd7f536f7eeb9440e8c8d81a10adbb16296b
+binutils_filespec=binutils-gdb.git
+binutils_mingw_only="no"
+binutils_linuxhost_only="no"
+binutils_configure="--enable-lto --enable-plugins --enable-gold --disable-werror CPPFLAGS=-UFORTIFY_SOURCE --with-pkgversion=Linaro_Binutils-2022.06 --disable-gdb --disable-sim --disable-libdecnumber --disable-readline --with-sysroot=${local_builds}/destdir/${host}/arm-linux-gnueabihf"
+binutils_staticlink="yes"
+
+# Component data for linux
+linux_url=git://git.kernel.org/pub/scm/linux/kernel/git/stable
+linux_branch=linux-rolling-lts
+linux_revision=71df8e74d59a7073c5f120df09d3d34f11402767
+linux_filespec=linux.git
+linux_mingw_only="no"
+linux_linuxhost_only="no"
+linux_staticlink="yes"
+
+# Component data for expat
+expat_url=https://snapshots.linaro.org/components/toolchain/infrastructure/
+expat_filespec=expat-2.1.0-1-mingw32-dev.tar.xz
+expat_md5sum=1dae54e2670882843d496692154a0e27
+expat_mingw_only="yes"
+expat_linuxhost_only="no"
+expat_staticlink="yes"
+
+# Component data for python
+python_url=https://snapshots.linaro.org/components/toolchain/infrastructure/
+python_filespec=python-2.7.4-mingw32.tar.xz
+python_md5sum=9b3092eff5508c4802936dfe4f5225ef
+python_mingw_only="yes"
+python_linuxhost_only="no"
+python_staticlink="yes"
+
+# Component data for libiconv
+libiconv_url=https://snapshots.linaro.org/components/toolchain/infrastructure/
+libiconv_filespec=libiconv-1.14-3-mingw32-dev.tar.xz
+libiconv_md5sum=7ead614fa3a8bc266e70c6fcdf198219
+libiconv_mingw_only="yes"
+libiconv_linuxhost_only="no"
+libiconv_staticlink="yes"
+
+# Component data for gcc
+gcc_url=https://git.linaro.org/git/toolchain
+gcc_branch=releases/gcc-11
+gcc_revision=591c0f4b92548e3ae2e8173f4f93984b1c7f62bb
+gcc_filespec=gcc.git
+gcc_makeflags="MAKEINFOFLAGS=--force"
+gcc_mingw_only="no"
+gcc_linuxhost_only="no"
+gcc_configure=
+gcc_mingw_extraconf="--with-libiconv-prefix=${local_builds}/destdir/${host}/usr --with-system-zlib=no"
+gcc_staticlink="no"
+gcc_stage1_flags="--with-mpc=${local_builds}/destdir/${host} --with-mpfr=${local_builds}/destdir/${host} --with-gmp=${local_builds}/destdir/${host} --with-gnu-as --with-gnu-ld --disable-libmudflap --enable-lto --enable-shared --without-included-gettext --enable-nls --with-system-zlib --disable-sjlj-exceptions --enable-gnu-unique-object --enable-linker-build-id --disable-libstdcxx-pch --enable-c99 --enable-clocale=gnu --enable-libstdcxx-debug --enable-long-long --with-cloog=no --with-ppl=no --with-isl=no --disable-multilib --with-float=hard --with-fpu=vfpv3-d16 --with-mode=thumb --with-tune=cortex-a9 --with-arch=armv7-a --enable-threads=posix --enable-multiarch --enable-libstdcxx-time=yes --enable-gnu-indirect-function --disable-libssp --disable-libquadmath --disable-threads --without-headers --with-newlib --disable-libmudflap --disable-decimal-float --disable-libgomp --disable-libatomic --disable-libsanitizer --disable-plugins --disable-libitm --enable-languages=c,c++ --disable-libstdcxx --disable-libvtv --disable-shared --with-glibc-version=2.18 --disable-bootstrap"
+gcc_stage2_flags="--with-mpc=${local_builds}/destdir/${host} --with-mpfr=${local_builds}/destdir/${host} --with-gmp=${local_builds}/destdir/${host} --with-gnu-as --with-gnu-ld --disable-libmudflap --enable-lto --enable-shared --without-included-gettext --enable-nls --with-system-zlib --disable-sjlj-exceptions --enable-gnu-unique-object --enable-linker-build-id --disable-libstdcxx-pch --enable-c99 --enable-clocale=gnu --enable-libstdcxx-debug --enable-long-long --with-cloog=no --with-ppl=no --with-isl=no --disable-multilib --with-float=hard --with-fpu=vfpv3-d16 --with-mode=thumb --with-tune=cortex-a9 --with-arch=armv7-a --enable-threads=posix --enable-multiarch --enable-libstdcxx-time=yes --enable-gnu-indirect-function --with-sysroot=${local_builds}/destdir/${host}/arm-linux-gnueabihf/libc --enable-checking=release --disable-bootstrap --enable-languages=c,c++,fortran,lto"
+
+# Component data for glibc
+glibc_url=https://git.linaro.org/git/toolchain
+glibc_branch=release/2.34/master
+glibc_revision=b3f935940ebcdf553b64e74fdf65dfd4858821ad
+glibc_filespec=glibc.git
+glibc_makeflags="PARALLELMFLAGS=-j32"
+glibc_mingw_only="no"
+glibc_linuxhost_only="no"
+glibc_configure="--disable-profile --without-gd --enable-obsolete-rpc --with-headers=${local_builds}/destdir/${host}/arm-linux-gnueabihf/libc/usr/include libc_cv_forced_unwind=yes libc_cv_c_cleanup=yes --without-selinux --disable-werror"
+
+# Component data for gdb
+gdb_url=https://git.linaro.org/git/toolchain
+gdb_branch=gdb-11-branch
+gdb_revision=e8d58df5b1fa5ddb5b4bb0217db15f57005295ec
+gdb_filespec=binutils-gdb.git
+gdb_makeflags="all-gdb"
+gdb_mingw_only="no"
+gdb_linuxhost_only="no"
+gdb_configure="--with-gnu-ld --enable-plugins --enable-tui --with-pkgversion=Linaro_GDB-2022.06 --disable-gas --disable-binutils --disable-elfcpp --disable-ld --disable-gold --disable-gprof --with-python=python3 --disable-werror"
+gdb_mingw_extraconf="--disable-tui --with-python=${local_snapshots}/python-2.7.4-mingw32 CFLAGS=-I${local_builds}/destdir/${host}/usr/include LDFLAGS=-L${local_builds}/destdir/${host}/usr/lib"
+gdb_staticlink="yes"
+
+# Component data for gdbserver
+gdbserver_url=https://git.linaro.org/git/toolchain
+gdbserver_branch=gdb-11-branch
+gdbserver_revision=e8d58df5b1fa5ddb5b4bb0217db15f57005295ec
+gdbserver_filespec=binutils-gdb.git
+gdbserver_makeflags="all-gdbserver"
+gdbserver_mingw_only="no"
+gdbserver_linuxhost_only="no"
+gdbserver_configure="--with-gnu-ld --enable-plugins --enable-tui --with-pkgversion=Linaro_GDB-2022.06 --disable-gas --disable-binutils --disable-elfcpp --disable-ld --disable-gold --disable-gprof --with-python=python3"
+gdbserver_staticlink="yes"
+
+# Component data for qemu
+qemu_url=https://gitlab.com/qemu-project
+qemu_branch=v6.0.0
+qemu_revision=609d7596524ab204ccd71ef42c9eee4c7c338ea4
+qemu_filespec=qemu.git
+qemu_mingw_only="no"
+qemu_linuxhost_only="yes"
+qemu_configure="--target-list=arm-linux-user,arm-softmmu"
+qemu_staticlink="no"
+
+
+clibrary=glibc
+target=arm-linux-gnueabihf
+manifestid=9bcd8f829d9fe7293548a86763d3a4a24915d413
+
+ ##############################################################################
+ # Everything below this line is only for informational purposes for developers
+ ##############################################################################
+
+# Build machine data
+build: linux
+host: x86_64-pc-linux-gnu
+kernel: 4.15.0-88-generic
+hostname: 65030b704ec9
+distribution: bionic
+host_gcc: gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
+
+# These aren't used in the repeat build. just a sanity check for developers
+build directory: /home/tcwg-buildslave/workspace/tcwg-gnu-build/_build/builds
+sysroot directory: /home/tcwg-buildslave/workspace/tcwg-gnu-build/_build/builds/destdir/x86_64-pc-linux-gnu/arm-linux-gnueabihf
+snapshots directory: /home/tcwg-buildslave/workspace/tcwg-gnu-build/snapshots
+git reference directory: /home/tcwg-buildslave/snapshots-ref
+
+abe_url=https://git-us.linaro.org/toolchain
+abe_branch=branch=
+abe_revision=0ffd75293e1888465ec4261cda7948f622ec97f1
+abe_filespec=abe.git
+abe_configure="--with-local-snapshots=${local_snapshots} --with-git-reference-dir=/home/tcwg-buildslave/snapshots-ref"
+
+--------------------- gcc ----------------------
+commit 591c0f4b92548e3ae2e8173f4f93984b1c7f62bb
+Author: GCC Administrator <gccadmin@gcc.gnu.org>
+Date:   Sat Jun 4 00:18:07 2022 +0000
+
+    Daily bump.
+
+--------------------- binutils ----------------------
+commit 44f1cd7f536f7eeb9440e8c8d81a10adbb16296b
+Author: Stefan Liebler <stli@linux.ibm.com>
+Date:   Thu Apr 28 14:30:55 2022 +0200
+
+    s390: Add DT_JMPREL pointing to .rela.[i]plt with static-pie
+    
+    In static-pie case, there are IRELATIVE-relocs in
+    .rela.iplt (htab->irelplt), which will later be grouped
+    to .rela.plt.  On s390, the IRELATIVE relocations are
+    always located in .rela.iplt - even for non-static case.
+    Ensure that DT_JMPREL, DT_PLTRELA, DT_PLTRELASZ is added
+    to the dynamic section even if htab->srelplt->size == 0.
+    See _bfd_elf_add_dynamic_tags in bfd/elflink.c.
+    
+    bfd/
+            elf64-s390.c (elf_s390_size_dynamic_sections):
+            Enforce DT_JMPREL via htab->elf.dt_jmprel_required.
+    
+    (cherry picked from commit d942d8db12adf4c9e5c7d9ed6496a779ece7149e)
+
+--------------------- glibc ----------------------
+commit b3f935940ebcdf553b64e74fdf65dfd4858821ad
+Author: Adhemerval Zanella <adhemerval.zanella@linaro.org>
+Date:   Tue May 31 12:51:43 2022 -0300
+
+    iconv: Use 64 bit stat for gconv_parseconfdir (BZ# 29213)
+    
+    The issue is only when used within libc.so (iconvconfig already builds
+    with _TIME_SIZE=64).
+    
+    This is a missing spot initially from 52a5fe70a2c77935.
+    
+    Checked on i686-linux-gnu.
+    
+    (cherry picked from commit c789e6e40974e2b67bd33a17f29b20dce6ae8822)
+
+--------------------- abe ----------------------
+commit 0ffd75293e1888465ec4261cda7948f622ec97f1
+Author: Laurent Alfonsi <laurent.alfonsi@linaro.org>
+Date:   Thu Apr 28 15:43:16 2022 +0200
+
+    config/master: disable gprofng
+    
+    Disable gprofng for themoment, because building binutils leads to
+     configure: error: Cannot set --enable-shared for gprofng/libcollector.
+     configure: error: /home/tcwg-buildslave/workspace/tcwg_kernel_0/abe/snapshots/binutils.git~master/gprofng/libcollector/configure failed for libcollector
+     checking whether vsnprintf is declared... make[1]: *** [Makefile:7726: configure-gprofng] Error 1
+     make: *** [Makefile:1004: all] Error 2
+    
+    This has been reported to https://sourceware.org/pipermail/binutils/2022-March/120141.html, and fixing it will require a lot of work.
+    They prefered not fixing it for this release. Disabling gprofng for the moment.
+    
+    Change-Id: Ie147efd0f27cb0113375c8408ab22fe988db8f0a
+

@@ -3,8 +3,9 @@
 echo "start create rootfs"
 
 cd $ROOT_DIR
-mkdir etc proc sys dev var boot
+mkdir etc proc sys dev var boot kmodule
 cp $BUSYBOX_DIR/examples/bootfloppy/etc/* etc/ -fr
+find $KERNEL_DIR/drivers -name "*.ko" -exec cp -f {} kmodule \;
 
 echo "proc	/proc   proc    defaults    0   0" > $ROOT_DIR/etc/fstab
 echo "sysfs	/sys    sysfs   defaults    0   0" >> $ROOT_DIR/etc/fstab

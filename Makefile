@@ -1,14 +1,15 @@
 # GLOBAL VARIABLES
 CURRENT_DIR := $(shell pwd)
-COMPILER_PREFIX := $(CURRENT_DIR)/arm-linux-gnueabihf-11.3.1/bin/arm-linux-gnueabihf-
 TARGET_ARCH := arm
 KERNEL_DIR := $(CURRENT_DIR)/linux-5.4.246
 UBOOT_DIR := $(CURRENT_DIR)/u-boot-2020.10
 BUSYBOX_DIR := $(CURRENT_DIR)/busybox-1.32.0
 ROOT_DIR := $(CURRENT_DIR)/root
+COMPILER_DIR := $(CURRENT_DIR)/arm-linux-gnueabihf-11.3.1
+COMPILER_PREFIX := $(COMPILER_DIR)/bin/arm-linux-gnueabihf-
 jN := j2
 
-export KERNEL_DIR BUSYBOX_DIR ROOT_DIR UBOOT_DIR
+export KERNEL_DIR BUSYBOX_DIR ROOT_DIR UBOOT_DIR COMPILER_DIR
 
 # sudo qemu-system-arm -M vexpress-a9 -m 512M -kernel ./u-boot -sd ../sdcard -nographic -no-reboot
 

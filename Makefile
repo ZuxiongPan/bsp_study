@@ -55,6 +55,7 @@ update_kernel:
 	sudo rm -f /mnt/boot/uImage /mnt/boot/vexpress-v2p-ca9.dtb
 	sudo cp $(KERNEL_DIR)/arch/arm/boot/uImage /mnt/boot/ -f
 	sudo cp $(KERNEL_DIR)/arch/arm/boot/dts/vexpress-v2p-ca9.dtb /mnt/boot/ -f
+	sudo find $(KERNEL_DIR)/drivers -name "*.ko" -exec cp -f {} /mnt/kmodule \;
 	sudo umount /mnt/
 
 clean:

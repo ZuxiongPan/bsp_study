@@ -111,6 +111,7 @@ int dram_init(void)
 {
 	gd->ram_size =
 		get_ram_size((long *)CONFIG_SYS_SDRAM_BASE, PHYS_SDRAM_1_SIZE);
+
 	return 0;
 }
 

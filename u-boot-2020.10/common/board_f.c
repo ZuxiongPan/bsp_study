@@ -208,7 +208,7 @@ static int print_cpuinfo(void)
 
 static int announce_dram_init(void)
 {
-	puts("DRAM:  ");
+	printf("DRAM SIZE:  ");
 	return 0;
 }
 

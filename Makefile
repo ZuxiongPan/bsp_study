@@ -70,7 +70,7 @@ update_version:
 	sudo cp $(KERNEL_DIR)/arch/arm/boot/uImage /mnt/boot/ -f
 	sudo cp $(KERNEL_DIR)/arch/arm/boot/dts/vexpress-v2p-ca9.dtb /mnt/boot/ -f
 	sudo find $(KERNEL_DIR)/drivers -name "*.ko" -exec cp -f {} /mnt/kmodule \;
-	sudo cp $(APPLICATIONS_DIR)/source/pzxtest /mnt/usr/bin -f
+	sudo cp $(APPLICATIONS_DIR)/source/app /mnt/usr/bin -f
 	sudo umount /mnt/
 
 clean:

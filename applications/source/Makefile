@@ -1,4 +1,4 @@
-TARGET := pzxtest
+TARGET := app
 
 .PHONY: all install clean
 

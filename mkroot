@@ -3,7 +3,7 @@
 echo "start create rootfs"
 
 cd $ROOT_DIR
-mkdir etc proc sys dev var boot kmodule lib
+mkdir etc proc sys dev var boot kmodule lib home
 cp $BUSYBOX_DIR/examples/bootfloppy/etc/* etc/ -fr
 cp $COMPILER_DIR/arm-linux-gnueabihf/libc/lib/ld-linux-armhf.so.3 lib/ -f
 cp $COMPILER_DIR/arm-linux-gnueabihf/libc/lib/libc.so.6 lib/ -f

@@ -15,6 +15,8 @@ export APP_INSTALL_DIR ?= $(ROOT_DIR)/usr/bin
 export KERNEL_DIR BUSYBOX_DIR ROOT_DIR UBOOT_DIR APPLICATIONS_DIR COMPILER_DIR COMPILER_PREFIX
 
 # sudo qemu-system-arm -M vexpress-a9 -m 512M -kernel ./u-boot -sd ../sdcard -nographic -no-reboot
+# readelf -l app | grep interpreter
+# readelf -d app | grep NEEDED
 
 .PHONY: all clean uboot uboot_clean kernel kernel_clean busybox busybox_clean \
 	applications applications_clean root root_clean update_version

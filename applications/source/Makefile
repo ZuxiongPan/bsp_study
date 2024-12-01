@@ -4,10 +4,10 @@ TARGET := app
 
 all: $(TARGET)
 
-$(TARGET): test.o
+$(TARGET): app.o
 	$(CC) $< $(LDFLAGS) -o $@
 	
-test.o: test.c
+app.o: app.c
 	$(CC) -c $< $(CFLAGS) -o $@
 
 install: $(TARGET)

@@ -14,7 +14,7 @@ CONFIG_SYS_LOAD_ADDR=0x90000000
 CONFIG_ENV_ADDR=0x47F80000
 CONFIG_SYS_MONITOR_BASE=0x40000000
 CONFIG_DISTRO_DEFAULTS=y
-CONFIG_BOOTCOMMAND="run distro_bootcmd; run bootflash"
+CONFIG_BOOTCOMMAND="setenv bootargs root=/dev/mmcblk0 rw console=ttyAMA0,38400n8 init=/linuxrc; saveenv; load mmc 0:0 0x60100000 boot/uImage; load mmc 0:0 0x60000000 boot/vexpress-v2p-ca9.dtb; bootm 0x60100000 - 0x60000000"
 CONFIG_DEFAULT_FDT_FILE="vexpress-v2p-ca9.dtb"
 CONFIG_SYS_CBSIZE=512
 CONFIG_SYS_PBSIZE=532

@@ -1,14 +1,14 @@
 # GLOBAL VARIABLES
 CURRENT_DIR := $(shell pwd)
 TARGET_ARCH := arm
-KERNEL_DIR := $(CURRENT_DIR)/linux-5.4.246
-UBOOT_DIR := $(CURRENT_DIR)/u-boot-2020.10
-BUSYBOX_DIR := $(CURRENT_DIR)/busybox-1.32.0
+KERNEL_DIR := $(CURRENT_DIR)/linux-6.6
+UBOOT_DIR := $(CURRENT_DIR)/u-boot-2024.10
+BUSYBOX_DIR := $(CURRENT_DIR)/busybox-1.36.0
 ROOT_DIR := $(CURRENT_DIR)/root
 APPLICATIONS_DIR := $(CURRENT_DIR)/applications
-COMPILER_DIR := $(CURRENT_DIR)/arm-linux-gnueabihf-11.3.1
+COMPILER_DIR := $(CURRENT_DIR)/arm-linux-gnueabihf-14.0.0
 COMPILER_PREFIX := $(COMPILER_DIR)/bin/arm-linux-gnueabihf-
-jN := j2
+jN := j4
 
 export APP_INSTALL_DIR ?= $(ROOT_DIR)/usr/bin
 
@@ -17,6 +17,7 @@ export KERNEL_DIR BUSYBOX_DIR ROOT_DIR UBOOT_DIR APPLICATIONS_DIR COMPILER_DIR C
 # sudo qemu-system-arm -M vexpress-a9 -m 512M -kernel ./u-boot -sd ../sdcard -nographic -no-reboot
 # readelf -l app | grep interpreter
 # readelf -d app | grep NEEDED
+# git restore --source=origin/master myfile.txt
 
 .PHONY: all clean uboot uboot_clean kernel kernel_clean busybox busybox_clean \
 	applications applications_clean root root_clean update_version
@@ -29,7 +30,7 @@ uboot:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(UBOOT_DIR) -$(jN)
 
 uboot_clean:
-	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(UBOOT_DIR) clean
+	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(UBOOT_DIR) distclean
 
 kernel:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) vexpress_defconfig
@@ -38,7 +39,7 @@ kernel:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) dtbs -$(jN)
 
 kernel_clean:
-	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) clean
+	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) distclean
 
 busybox:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(BUSYBOX_DIR) defconfig

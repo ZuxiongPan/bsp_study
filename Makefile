@@ -11,7 +11,7 @@ jN := j4
 
 export KERNEL_DIR BUSYBOX_DIR ROOT_DIR UBOOT_DIR COMPILER_DIR COMPILER_PREFIX
 
-# sudo qemu-system-arm -M vexpress-a9 -m 512M -kernel ./u-boot -sd ../sdcard -nographic -no-reboot
+# sudo qemu-system-arm -M vexpress-a9 -m 512M -kernel ./u-boot -nographic -no-reboot -sd ../sdcard
 # readelf -l app | grep interpreter
 # readelf -d app | grep NEEDED
 # git restore --source=origin/master myfile.txt

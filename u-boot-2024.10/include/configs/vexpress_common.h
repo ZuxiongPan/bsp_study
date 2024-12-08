@@ -145,6 +145,7 @@
         func(DHCP, dhcp, na)
 #include <config_distro_bootcmd.h>
 
+#if 0
 #define CFG_EXTRA_ENV_SETTINGS \
                 "loadaddr=0x60100000\0" \
                 "kernel_addr_r=0x60100000\0" \
@@ -162,6 +163,15 @@
 		"bootflash=run flashargs; " \
 			"cp ${ramdisk_addr} ${ramdisk_addr_r} ${maxramdisk}; " \
 			"bootm ${kernel_addr} ${ramdisk_addr_r}\0" \
+		"fdtfile=" CONFIG_DEFAULT_FDT_FILE "\0"
+#endif
+
+#define CFG_EXTRA_ENV_SETTINGS \
+                "kernel_addr=0x60100000\0" \
+                "fdt_addr=0x60000000\0" \
+                "bootargs=root=/dev/mmcblk0 rw console=ttyAMA0,38400n8 init=/linuxrc\0" \
+		"console=ttyAMA0,38400n8\0" \
+		"dram=512M\0" \
 		"fdtfile=" CONFIG_DEFAULT_FDT_FILE "\0"
 
 /* FLASH and environment organization */

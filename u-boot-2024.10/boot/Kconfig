@@ -35,6 +35,16 @@ config BUTTON_CMD
 	    "button_cmd_0_name=vol_down"
 	    "button_cmd_0=fastboot usb 0"
 
+config BOOTIMG_CUSTOMIZED
+	bool "this macro will use booting functions which was written by others"
+	default n
+	help
+		if you want to use booting function, set BOOTIMG_CUSTOMIZED=y,
+		then you need to write your own booting function in file
+		common/bootimg_customized.c and modify the main_loop function in file
+		common/main.c to customize you own booting
+		if this macro is DISABLED, boot will recover to default
+
 menuconfig FIT
 	bool "Flattened Image Tree (FIT)"
 	select HASH

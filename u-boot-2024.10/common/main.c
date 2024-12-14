@@ -19,6 +19,7 @@
 #include <net.h>
 #include <version_string.h>
 #include <efi_loader.h>
+#include <customized.h>
 
 static void run_preboot_environment_command(void)
 {
@@ -64,11 +65,15 @@ void main_loop(void)
 
 	process_button_cmds();
 
-	s = bootdelay_process();
+	s = bootdelay_process();	// get bootcmd from environments
 	if (cli_process_fdt(&s))
 		cli_secure_boot_cmd(s);
 
+#ifdef CONFIG_BOOTIMG_CUSTOMIZED
+	customized_bootimg();
+#else
 	autoboot_command(s);
+#endif
 
 	/* if standard boot if enabled, assume that it will be able to boot */
 	if (IS_ENABLED(CONFIG_BOOTSTD_PROG)) {

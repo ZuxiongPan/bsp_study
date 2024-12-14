@@ -414,10 +414,18 @@ int cmd_source_script(ulong addr, const char *fit_uname, const char *confname);
 		{ #_name, _maxargs, _cmd_rep, cmd_discard_repeatable,	\
 		  _usage, _CMD_HELP(_help) _CMD_COMPLETE(_comp) }
 
+/*
 #define U_BOOT_CMD_MKENT_COMPLETE(_name, _maxargs, _rep, _cmd,		\
 				_usage, _help, _comp)			\
 		{ #_name, _maxargs,					\
 		 _rep ? cmd_always_repeatable : cmd_never_repeatable,	\
+		 _cmd, _usage, _CMD_HELP(_help) _CMD_COMPLETE(_comp) }
+*/
+		 
+#define U_BOOT_CMD_MKENT_COMPLETE(_name, _maxargs, _rep, _cmd,		\
+				_usage, _help, _comp)			\
+		{ #_name, _maxargs,					\
+		 cmd_never_repeatable,	\
 		 _cmd, _usage, _CMD_HELP(_help) _CMD_COMPLETE(_comp) }
 
 #define U_BOOT_CMD_COMPLETE(_name, _maxargs, _rep, _cmd, _usage, _help, _comp) \

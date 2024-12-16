@@ -1,0 +1,1 @@
+obj-y += bootimg_customized.o

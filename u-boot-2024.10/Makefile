@@ -836,7 +836,8 @@ UBOOTINCLUDE    := \
 			-I$(srctree)/arch/arm/thumb1/include)) \
 	-I$(srctree)/arch/$(ARCH)/include \
 	-include $(srctree)/include/linux/kconfig.h \
-	-I$(srctree)/dts/upstream/include
+	-I$(srctree)/dts/upstream/include \
+	-I$(srctree)/customized
 
 NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
 
@@ -850,6 +851,7 @@ c_flags := $(KBUILD_CFLAGS) $(cpp_flags)
 
 HAVE_VENDOR_COMMON_LIB = $(if $(wildcard $(srctree)/board/$(VENDOR)/common/Makefile),y,n)
 
+libs-$(CONFIG_BOOTIMG_CUSTOMIZED) += customized/
 libs-$(CONFIG_API) += api/
 libs-$(HAVE_VENDOR_COMMON_LIB) += board/$(VENDOR)/common/
 libs-y += boot/

@@ -1,7 +1,7 @@
-#include <customized.h>
 #include <stdio.h>
 #include <fs.h>
 #include <command.h>
+#include "customized.h"
 
 const char* loadKernel[64] = { "load", "mmc", "0:0", "0x60100000", "boot/uImage", NULL };
 const char* loadDTB[64] = { "load", "mmc", "0:0", "0x60000000", "boot/vexpress-v2p-ca9.dtb", NULL };
@@ -10,6 +10,7 @@ const char* bootmInfo[64] = { "bootm", "0x60100000", "-", "0x60000000", NULL };
 int customized_bootimg(void)
 {
 	printf("Start customized bootimg ...\n");
+	
 	
 	printf("Start load Kernel to memory\n");
 	int strNums = 0;

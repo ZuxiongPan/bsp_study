@@ -74,7 +74,7 @@ update_kernel:
 
 update_app:
 	sudo mount -t ext4 $(CURRENT_DIR)/sdcard /mnt/ -o loop
-	sudo cp -f $(APP_DIR)/app /mnt/usr/bin/
+	sudo cp -f $(APP_DIR)/app /mnt/
 	sudo umount /mnt/
 
 clean:

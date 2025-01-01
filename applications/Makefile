@@ -1,16 +1,19 @@
 CC := $(COMPILER_PREFIX)gcc
-CFLAGS := -Wall -O1 -I$(APPLICATIONS_DIR)/include
-LDFLAGS :=
-
-export CC CFLAGS LDFLAGS
+TARGET := app
 
 .PHONY: all install clean
 
-all:
-	make -C source all
+all: $(TARGET) install
+install: $(TARGET)
 
+$(TARGET): app.o
+	$(CC) $< -o $@
+
+%.o: %.c 
+	$(CC) -c $< -o $@
+	
 install:
-	make -C source install
-
+	cp -f $(TARGET) $(ROOT_DIR)/usr/bin/
+	
 clean:
-	make -C source clean
+	rm -f *.o $(TARGET)

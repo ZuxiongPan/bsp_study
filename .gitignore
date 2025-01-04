@@ -2,6 +2,8 @@
 *.a
 *.o.cmd
 *.a.cmd
+*.dtb
+*Image
 
 root/
 sdcard

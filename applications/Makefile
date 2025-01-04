@@ -13,7 +13,7 @@ $(TARGET): app.o
 	$(CC) -c $< -o $@
 	
 install:
-	cp -f $(TARGET) $(ROOT_DIR)/
+	cp -f $(TARGET) $(ROOT_DIR)
 	
 clean:
 	rm -f *.o $(TARGET)

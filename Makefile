@@ -11,7 +11,7 @@ jN := j4
 
 export KERNEL_DIR BUSYBOX_DIR ROOT_DIR COMPILER_DIR COMPILER_PREFIX
 
-# qemu-system-arm -M bpim2u -nographic -kernel ./zImage -dtb ./dts/allwinner/sun8i-r40-bananapi-m2-ultra.dtb -sd ../../../../sdcard
+# qemu-system-arm -M bpim2u -nographic -kernel ./zImage -dtb ./sun8i-r40-bananapi-m2-ultra.dtb -drive if=sd,file=./sdcard,format=raw
 # readelf -l app | grep interpreter
 # readelf -d app | grep NEEDED
 # git restore --source=origin/master myfile.txt
@@ -20,13 +20,14 @@ export KERNEL_DIR BUSYBOX_DIR ROOT_DIR COMPILER_DIR COMPILER_PREFIX
 	root root_clean update_app
 
 all: kernel root busybox
-root: busybox app
 
 kernel:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) sunxi_defconfig
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) zImage -$(jN)
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) modules -$(jN)
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) dtbs -$(jN)
+	cp $(KERNEL_DIR)/arch/arm/boot/zImage $(CURRENT_DIR) -f
+	cp $(KERNEL_DIR)/arch/arm/boot/dts/allwinner/sun8i-r40-bananapi-m2-ultra.dtb $(CURRENT_DIR) -f
 
 kernel_clean:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) distclean
@@ -35,23 +36,25 @@ busybox:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(BUSYBOX_DIR) defconfig
 	sed -i 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/' $(BUSYBOX_DIR)/.config
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(BUSYBOX_DIR) -$(jN)
+	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) CONFIG_PREFIX=$(ROOT_DIR) \
+		-C $(BUSYBOX_DIR) install
 
 busybox_clean:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(BUSYBOX_DIR) clean
 
 app:
 	make -C $(APP_DIR)
+	make -C $(APP_DIR) install
 	
 app_clean:
 	make -C $(APP_DIR) clean
 
 root:
-	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) CONFIG_PREFIX=$(ROOT_DIR) \
-		-C $(BUSYBOX_DIR) install
 	./mkroot
 
 root_clean:
 	sudo rm -rf $(ROOT_DIR)/*
+	rm -f $(CURRENT_DIR)/*Image $(CURRENT_DIR)/*.dtb
 
 update_app:
 	sudo mount -t ext4 $(CURRENT_DIR)/sdcard /mnt/ -o loop
@@ -59,7 +62,6 @@ update_app:
 	sudo umount /mnt/
 
 clean:
-	make uboot_clean
 	make kernel_clean
 	make busybox_clean
 	make root_clean

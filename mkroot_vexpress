@@ -3,7 +3,7 @@
 echo "start create rootfs"
 
 cd $ROOT_DIR
-mkdir etc proc sys dev var kmodule lib home
+mkdir etc proc sys dev var boot kmodule lib home
 cp $BUSYBOX_DIR/examples/bootfloppy/etc/* etc/ -fr
 cp $COMPILER_DIR/arm-linux-gnueabihf/libc/lib/ld-linux-armhf.so.3 lib/ -f
 cp $COMPILER_DIR/arm-linux-gnueabihf/libc/lib/libc.so.6 lib/ -f
@@ -19,6 +19,11 @@ echo "export PATH LD_LIBRARY_PATH" >> $ROOT_DIR/etc/profile
 echo "/bin/mount -a" > $ROOT_DIR/etc/init.d/rcS
 echo "/sbin/mdev -s" >> $ROOT_DIR/etc/init.d/rcS
 echo "source /etc/profile" >> $ROOT_DIR/etc/init.d/rcS
+
+$UBOOT_DIR/tools/mkimage -A arm -O linux -T kernel -C none -a 0x60100000 -n pzxkernel \
+    -d $KERNEL_DIR/arch/arm/boot/zImage $KERNEL_DIR/arch/arm/boot/uImage
+cp $KERNEL_DIR/arch/arm/boot/uImage $ROOT_DIR/boot -f
+cp $KERNEL_DIR/arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb $ROOT_DIR/boot -f
 
 dd if=/dev/zero of=$ROOT_DIR/../sdcard bs=1M count=32
 sudo mkfs.ext4 $ROOT_DIR/../sdcard

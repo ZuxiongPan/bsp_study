@@ -19,6 +19,7 @@ echo "export PATH LD_LIBRARY_PATH" >> $ROOT_DIR/etc/profile
 echo "/bin/mount -a" > $ROOT_DIR/etc/init.d/rcS
 echo "/sbin/mdev -s" >> $ROOT_DIR/etc/init.d/rcS
 echo "source /etc/profile" >> $ROOT_DIR/etc/init.d/rcS
+echo "hostname bpim2u-pzx" >> $ROOT_DIR/etc/init.d/rcS
 
 dd if=/dev/zero of=$ROOT_DIR/../sdcard bs=1M count=32
 sudo mkfs.ext4 $ROOT_DIR/../sdcard

@@ -7,7 +7,7 @@ ROOT_DIR := $(CURRENT_DIR)/root
 APP_DIR := $(CURRENT_DIR)/applications
 COMPILER_DIR := $(CURRENT_DIR)/arm-linux-gnueabihf-14.0.0
 COMPILER_PREFIX := $(COMPILER_DIR)/bin/arm-linux-gnueabihf-
-jN := j4
+jN := j8
 
 export KERNEL_DIR BUSYBOX_DIR ROOT_DIR COMPILER_DIR COMPILER_PREFIX
 
@@ -20,6 +20,7 @@ export KERNEL_DIR BUSYBOX_DIR ROOT_DIR COMPILER_DIR COMPILER_PREFIX
 	root root_clean update_app
 
 all: kernel root busybox
+root: busybox
 
 kernel:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(KERNEL_DIR) sunxi_defconfig
@@ -49,7 +50,7 @@ app:
 app_clean:
 	make -C $(APP_DIR) clean
 
-root:
+root: busybox
 	./mkroot
 
 root_clean:
@@ -65,3 +66,4 @@ clean:
 	make kernel_clean
 	make busybox_clean
 	make root_clean
+	make app_clean

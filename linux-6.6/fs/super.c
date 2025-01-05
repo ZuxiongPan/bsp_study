@@ -2139,3 +2139,14 @@ int sb_init_dio_done_wq(struct super_block *sb)
 		destroy_workqueue(wq);
 	return 0;
 }
+
+void debug_superblocks(void)
+{
+    struct super_block *sb;
+
+    list_for_each_entry(sb, &super_blocks, s_list) {
+        printk(KERN_INFO "Superblock: device=%s, fs_type=%s\n",
+               sb->s_id, sb->s_type->name);
+    }
+}
+EXPORT_SYMBOL(debug_superblocks);

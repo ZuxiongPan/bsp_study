@@ -1,19 +1,29 @@
 CC := $(COMPILER_PREFIX)gcc
-TARGET := app
+CFLAGS := -I$(BSP_INCDIR)
+LDFLAGS :=
 
-.PHONY: all install clean
+export CC CFLAGS LDFLAGS
 
-all: $(TARGET) install
-install: $(TARGET)
+dirs-y += appctl/
 
-$(TARGET): app.o
-	$(CC) $< -o $@
+.PHONY: all install update clean
 
-%.o: %.c 
-	$(CC) -c $< -o $@
+all:
+	for dir in $(dirs-y); do \
+	make -C $$dir; \
+	done
 	
 install:
-	cp -f $(TARGET) $(ROOT_DIR)
-	
+	for dir in $(dirs-y); do \
+	make -C $$dir install; \
+	done
+
+update:
+	for dir in $(dirs-y); do \
+	make -C $$dir update; \
+	done
+
 clean:
-	rm -f *.o $(TARGET)
+	for dir in $(dirs-y); do \
+	make -C $$dir clean; \
+	done

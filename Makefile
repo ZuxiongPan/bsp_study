@@ -5,11 +5,12 @@ KERNEL_DIR := $(CURRENT_DIR)/linux-6.6
 BUSYBOX_DIR := $(CURRENT_DIR)/busybox-1.36.0
 ROOT_DIR := $(CURRENT_DIR)/root
 APP_DIR := $(CURRENT_DIR)/applications
+BSP_INCDIR := $(CURRENT_DIR)/include
 COMPILER_DIR := $(CURRENT_DIR)/arm-linux-gnueabihf-14.0.0
 COMPILER_PREFIX := $(COMPILER_DIR)/bin/arm-linux-gnueabihf-
 jN := j8
 
-export KERNEL_DIR BUSYBOX_DIR ROOT_DIR COMPILER_DIR COMPILER_PREFIX
+export KERNEL_DIR BUSYBOX_DIR ROOT_DIR COMPILER_DIR COMPILER_PREFIX BSP_INCDIR
 
 # qemu-system-arm -M bpim2u -nographic -kernel ./zImage -dtb ./sun8i-r40-bananapi-m2-ultra.dtb -drive if=sd,file=./sdcard,format=raw
 # readelf -l app | grep interpreter
@@ -44,7 +45,7 @@ busybox_clean:
 	make ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) -C $(BUSYBOX_DIR) clean
 
 app:
-	make -C $(APP_DIR)
+	make -C $(APP_DIR) all
 	make -C $(APP_DIR) install
 	
 app_clean:
@@ -57,9 +58,10 @@ root_clean:
 	sudo rm -rf $(ROOT_DIR)/*
 	rm -f $(CURRENT_DIR)/*Image $(CURRENT_DIR)/*.dtb
 
-update_app:
+update:
 	sudo mount -t ext4 $(CURRENT_DIR)/sdcard /mnt/ -o loop
-	sudo cp -f $(APP_DIR)/app /mnt/
+	sudo find $(KERNEL_DIR)/drivers -name "*.ko" -exec cp -f {} /mnt/kmodule \;
+	make -C $(APP_DIR) update
 	sudo umount /mnt/
 
 clean:

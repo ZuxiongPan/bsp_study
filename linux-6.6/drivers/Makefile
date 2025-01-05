@@ -14,6 +14,7 @@ endif
 obj-y				+= cache/
 obj-y				+= irqchip/
 obj-y				+= bus/
+obj-y				+= custom/
 
 obj-$(CONFIG_GENERIC_PHY)	+= phy/
 
